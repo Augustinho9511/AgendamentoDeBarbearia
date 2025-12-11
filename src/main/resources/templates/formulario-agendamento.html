@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head><title>Cadastro</title></head>
+
+  <body>
+    <h1>📝 Marcar Horário</h1>
+
+    <form th:action="@{/agendamento/salvar}" th:object="${agendamento}" method="post">
+
+      <input type="hidden" th:field="*{id}" />
+
+      <label>Cliente:</label>
+      <input type="text" th:field="*{nome}" required /><br>
+
+      <label>Telefone:</label>
+      <input type="text" th:field="*{telefone}" /><br>
+
+      <label>Data:</label>
+      <input type="date" th:field="*{data}" required /><br>
+
+      <label>Hora:</label>
+      <input type="time" th:field="*{horario}" required /><br><br>
+
+      <button type="submit">💾 Salvar</button>
+      <a href="/agendamento">Cancelar</a>
+    </form>
+  </body>
+</html>
