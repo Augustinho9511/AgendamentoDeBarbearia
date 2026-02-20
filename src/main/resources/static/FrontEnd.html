@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema Barbearia - Vue.js</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background-color: #f8f9fa; }
+    .container { max-width: 600px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    input { width: 90%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
+    button { padding: 10px 20px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 5px; }
+    .agendamento-item { border-bottom: 1px solid #eee; padding: 10px 0; display: flex; justify-content: space-between; }
+    .btn-excluir { background: #dc3545; font-size: 12px; }
+  </style>
+</head>
+<body>
+<div id="app" class="container">
+  <h2>Novo Agendamento</h2>
+  <input v-model="novoAgendamento.nome" placeholder="Nome do Cliente">
+  <input v-model="novoAgendamento.telefone" placeholder="Telefone">
+  <input type="date" v-model="novoAgendamento.data">
+  <input type="time" v-model="novoAgendamento.horario">
+  <button @click="salvarAgendamento">Agendar</button>
+
+  <hr>
+
+  <h3>Lista de Agendamentos</h3>
+  <div v-for="item in lista" :key="item.id" class="agendamento-item">
+    <span>{{ item.nome }} - {{ item.data }} às {{ item.horario }}</span>
+    <button class="btn-excluir" @click="excluirAgendamento(item.id)">Excluir</button>
+  </div>
+</div>
+
+<script>
+  const { createApp, ref, onMounted } = Vue;
+  createApp({
+      setup() {
+          const lista = ref([]);
+          const novoAgendamento = ref({ nome: '', telefone: '', data: '', horario: '' });
+
+          const carregarAgendamentos = async () => {
+              const res = await fetch('http://localhost:8080/api/agendamentos');
+              lista.value = await res.json();
+          };
+
+          const salvarAgendamento = async () => {
+              await fetch('http://localhost:8080/api/agendamentos', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(novoAgendamento.value)
+              });
+              novoAgendamento.value = { nome: '', telefone: '', data: '', horario: '' };
+              carregarAgendamentos();
+          };
+
+          const excluirAgendamento = async (id) => {
+              await fetch(`http://localhost:8080/api/agendamentos/${id}`, { method: 'DELETE' });
+              carregarAgendamentos();
+          };
+
+          onMounted(carregarAgendamentos);
+          return { lista, novoAgendamento, salvarAgendamento, excluirAgendamento };
+      }
+  }).mount('#app');
+</script>
+</body>
+</html>

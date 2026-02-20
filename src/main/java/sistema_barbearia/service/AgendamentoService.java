@@ -25,7 +25,6 @@ public class AgendamentoService {
         repository.deleteById(id);
     }
 
-    // Essencial para a Edição:
     public Agendamento buscarPorId(Long id) {
         return repository.findById(id).get();
     }
