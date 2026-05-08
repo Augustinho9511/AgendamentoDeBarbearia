@@ -1,8 +1,10 @@
 package sistema_barbearia.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sistema_barbearia.model.Agendamento;
+import sistema_barbearia.model.entity.Agendamento;
+import sistema_barbearia.model.DTO.AgendamentoDTO;
 import sistema_barbearia.service.AgendamentoService;
 import java.util.List;
 
@@ -15,7 +17,7 @@ public class AgendamentoController {
     private AgendamentoService service;
 
     @GetMapping
-    public List<Agendamento> listarTodos() {
+    public List<AgendamentoDTO> listarTodos() {
         return service.listarTodos();
     }
 
@@ -25,8 +27,8 @@ public class AgendamentoController {
     }
 
     @PostMapping
-    public void salvar(@RequestBody Agendamento agendamento) {
-        service.salvar(agendamento);
+    public void salvar(@Valid @RequestBody AgendamentoDTO agendamentoDTO) {
+        service.salvar(agendamentoDTO);
     }
 
     @DeleteMapping("/{id}")
