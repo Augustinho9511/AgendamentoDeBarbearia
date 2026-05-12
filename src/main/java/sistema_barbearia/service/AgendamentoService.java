@@ -2,6 +2,7 @@ package sistema_barbearia.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sistema_barbearia.exception.AgendamentoNaoEncontradoException;
 import sistema_barbearia.model.DTO.ClienteDTO;
 import sistema_barbearia.model.entity.Agendamento;
 import sistema_barbearia.model.DTO.AgendamentoDTO;
@@ -62,6 +63,7 @@ public class AgendamentoService {
     }
 
     public Agendamento buscarPorId(Long id) {
-        return repository.findById(id).get();
+        return repository.findById(id)
+                .orElseThrow(() -> new AgendamentoNaoEncontradoException ("Ops! O agendamento com ID "+ id +" não existe na Baarbearia."));
     }
 }
