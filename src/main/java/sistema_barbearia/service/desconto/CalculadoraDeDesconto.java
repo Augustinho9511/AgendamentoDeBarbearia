@@ -1,4 +1,4 @@
-package sistema_barbearia.service;
+package sistema_barbearia.service.desconto;
 
 public class CalculadoraDeDesconto {
 

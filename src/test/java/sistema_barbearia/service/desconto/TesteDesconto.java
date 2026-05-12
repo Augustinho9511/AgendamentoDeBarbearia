@@ -1,9 +1,5 @@
 package sistema_barbearia.service.desconto;
 
-import sistema_barbearia.service.CalculadoraDeDesconto;
-import sistema_barbearia.service.DescontoPrimeiraVez;
-import sistema_barbearia.service.DescontoVip;
-
 public class TesteDesconto {
     public static void main(String[] args) {
         CalculadoraDeDesconto calculadora = new CalculadoraDeDesconto();
