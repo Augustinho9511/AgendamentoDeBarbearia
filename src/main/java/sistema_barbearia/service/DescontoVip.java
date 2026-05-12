@@ -1,4 +1,4 @@
-package sistema_barbearia.service.desconto;
+package sistema_barbearia.service;
 
 public class DescontoVip implements RegraDesconto {
 

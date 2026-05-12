@@ -1,6 +1,6 @@
-package sistema_barbearia.service.desconto;
+package sistema_barbearia.service;
 
-public class DescontoPrimeiroVez implements RegraDesconto {
+public class DescontoPrimeiraVez implements RegraDesconto {
 
     @Override
     public double aplicarDesconto(double valorOriginal) {
