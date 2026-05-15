@@ -2,7 +2,9 @@ package sistema_barbearia.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sistema_barbearia.model.DTO.DashboardDTO;
 import sistema_barbearia.model.entity.Agendamento;
 import sistema_barbearia.model.DTO.AgendamentoDTO;
 import sistema_barbearia.service.AgendamentoService;
@@ -34,5 +36,11 @@ public class AgendamentoController {
     @DeleteMapping("/{id}")
     public void excluir(@PathVariable Long id) {
         service.excluir(id);
+    }
+
+    @GetMapping("/dashboard")
+    public ResponseEntity<DashboardDTO> verDashboard() {
+        DashboardDTO dashboard = service.gerarDashboard();
+        return ResponseEntity.ok(dashboard);
     }
 }

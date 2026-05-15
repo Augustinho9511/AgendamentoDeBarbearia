@@ -27,9 +27,12 @@ public class Agendamento {
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime horario;
 
+    private Double valor;
+
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+
 
     public boolean isDataValida() {
         return !this.data.isBefore(java.time.LocalDate.now());
